@@ -27,7 +27,6 @@ To run this project, you need to have the following software installed:
 
 ### Installing Dependencies
 After cloning the repository, navigate to the project directory and install the dependencies:
-```bash
 git clone https://github.com/your-username/myFlix-client.git
 cd myFlix-client
 npm install
