@@ -86,8 +86,8 @@ MyFlix-Client/
 │   ├── index.jsx          # Main React component file
 │   ├── index.scss         # Main SCSS file for styling
 │
-├── .gitattributes          # Git attributes file (optional, for specifying repository behaviors)
-├── .gitignore              # Specifies files and directories to ignore in version control
+├── .gitattributes         # Git attributes file (optional, for specifying repository behaviors)
+├── .gitignore             # Specifies files and directories to ignore in version control
 ├── package-lock.json      # Auto-generated file that locks the versions of npm dependencies
 ├── package.json           # Contains project metadata and npm dependencies
 ```
