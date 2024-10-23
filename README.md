@@ -27,9 +27,11 @@ To run this project, you need to have the following software installed:
 
 ### Installing Dependencies
 After cloning the repository, navigate to the project directory and install the dependencies:
+```
 git clone https://github.com/your-username/myFlix-client.git
 cd myFlix-client
 npm install
+```
 
 ## Configuration
 
@@ -38,24 +40,32 @@ Parcel is used as the bundler for this project. It handles compiling JavaScript,
 
 1. **Install Parcel:**
    If you haven't already, install Parcel as a development dependency:
+   ```
    npm install --save-dev parcel
+   ```
 
 2. **.gitignore Setup:** 
    Make sure you have the following entries in your .gitignore file to avoid committing unnecessary files:
+   ```
    node_modules
    .parcel.cache
    dist
    .cache
+   ```
 
 ## Running the Application
 
 To start the development server and view the application in your browser:
+```
 parcel src/index.html
+```
 
 ## Building the Application
 
 To build the application for production, run:
+```
 parcel build src/index.html
+```
 
 # MyFlix Client
 
@@ -65,6 +75,7 @@ A React-based front-end application for the MyFlix project.
 
 Here’s the structure of the **MyFlix-Client** project:
 
+```
 MyFlix-Client/
 │
 ├── .parcel-cache/         # Cache folder used by Parcel to speed up the build process
@@ -79,7 +90,7 @@ MyFlix-Client/
 ├── .gitignore              # Specifies files and directories to ignore in version control
 ├── package-lock.json      # Auto-generated file that locks the versions of npm dependencies
 ├── package.json           # Contains project metadata and npm dependencies
-
+```
 
 ### Summary
 
