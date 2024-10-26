@@ -1,20 +1,13 @@
-import {createRoot} from 'react-dom/client';
-
-// Import statement to indicate that you need to bundle `./index.scss`
+// src/index.jsx
+import { createRoot } from 'react-dom/client';
+import { MainView } from "./components/main-view/MainView";
 import "./index.scss";
 
-// Main component (will eventually use all the others)
-const MyFlixApplication = () => {
-  return (
-    <div className="my-flix">
-      <div>Good morning</div>
-    </div>
-  );
-};
+// Get the container element
+const container = document.getElementById('root')
 
-// Finds the root of your app
-const container = document.querySelector("#root");
+// Create a root using React 18's new method
 const root = createRoot (container);
 
-// Tells React to render your app in the root DOM element
-root.render(<MyFlixApplication />);
+// Render the MainView component
+root.render(<mainView />);
