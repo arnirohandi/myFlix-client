@@ -83,9 +83,9 @@ npm run build
 
 ## Project Dependencies
 
-React - JavaScript library for building user interfaces
-Parcel - Blazing fast, zero configuration web application bundler
-SASS - CSS preprocessor for easier styling
+- React - JavaScript library for building user interfaces
+- Parcel - Blazing fast, zero configuration web application bundler
+- SASS - CSS preprocessor for easier styling
 
 ## Lisence
 
