@@ -1,79 +1,29 @@
 # myFlix Client
 
-A React-based front-end application for the myFlix project. This project uses Parcel as the bundler to handle JavaScript, SCSS, and other assets, making it easy to develop and build the application.
-
 ## Table of Contents
-- [Project Overview](#project-overview)
-- [Getting Started](#getting-started)
+- [Overview](#overview)
+- [Features](#features)
+- [Project Structure](#project-structure)
+- [Setup Instructions](#setup-instructions)
   - [Prerequisites](#prerequisites)
-  - [Installing Dependencies](#installing-dependencies)
-- [Configuration](#configuration)
-  - [Setting up Parcel](#setting-up-parcel)
-- [Running the Application](#running-the-application)
-- [Building the Application](#building-the-application)
-- [Folder Structure](#folder-structure)
+  - [Installation](#installation)
+  - [Building for Production](#building-for-production)
+- [Project Dependencies](#project-dependencies)
 - [License](#license)
+- [Contribution](#contribution)
+- [Contact](#contact)
 
-## Project Overview
-The **myFlix Client** is a user interface for the myFlix application, allowing users to browse movies, view details, and perform various interactions. It is developed using React and bundled with Parcel for optimized performance and ease of development.
+## Overview
+MyFlix-Client is a React-based single-page application (SPA) that displays a list of movies. Users can click on any movie to see more details and navigate back to the list. It is part of the myFlix project, which aims to showcase a movie database app.
 
-## Getting Started
+## Features
+- Display a list of movies as clickable cards.
+- View detailed information about each movie, including title, description, genre, and director.
+- Navigate back to the main list from a detailed movie view.
 
-### Prerequisites
-To run this project, you need to have the following software installed:
-- **Node.js** (v22.10.0 or higher recommended)
-- **npm** (Node Package Manager, comes with Node.js)
-- **Git** (for cloning the repository and version control)
+## Project Structure
 
-### Installing Dependencies
-After cloning the repository, navigate to the project directory and install the dependencies:
-```
-git clone https://github.com/your-username/myFlix-client.git
-cd myFlix-client
-npm install
-```
-
-## Configuration
-
-### Setting up Parcel
-Parcel is used as the bundler for this project. It handles compiling JavaScript, SCSS, and other assets automatically.
-
-1. **Install Parcel:**
-   If you haven't already, install Parcel as a development dependency:
-   ```
-   npm install --save-dev parcel
-   ```
-
-2. **.gitignore Setup:** 
-   Make sure you have the following entries in your .gitignore file to avoid committing unnecessary files:
-   ```
-   node_modules
-   .parcel.cache
-   dist
-   .cache
-   ```
-
-## Running the Application
-
-To start the development server and view the application in your browser:
-```
-parcel src/index.html
-```
-
-## Building the Application
-
-To build the application for production, run:
-```
-parcel build src/index.html
-```
-
-# MyFlix Client
-
-A React-based front-end application for the MyFlix project.
-
-## Folder Structure
-
-Here’s the structure of the **MyFlix-Client** project:
+Here’s the structure of the MyFlix-Client project:
 
 ```
 MyFlix-Client/
@@ -101,7 +51,45 @@ MyFlix-Client/
 ├── README.md              
 ```
 
-### Summary
 
-By following these steps, your `README.md` file will display the folder structure clearly on GitHub, making it easier for others to understand your project's organization. Let me know if you need any more help!
+## Setup Instructions
+
+### Prerequisites
+- Node.js (v14 or above)
+- npm or yarn package manager
+
+### Installation
+1. Clone the repository:
+   ```
+   git clone https://github.com/your-username/myflix-client.git
+   cd MyFlix-Client
+   ```
+2. Install dependencies:
+   ```
+   npm install
+   ```
+3. Start the application:
+   ```
+   npm start
+   ```
+4. Open your browser and navigate to https://localhost:1234 to see the app in action.
+
+### Building for Production
+
+To create a production build, run:
+```
+npm run build
+```
+
+## Project Dependencies
+
+React - JavaScript library for building user interfaces
+Parcel - Blazing fast, zero configuration web application bundler
+SASS - CSS preprocessor for easier styling
+
+## Lisence
+
+## Contribution
+
+
 
