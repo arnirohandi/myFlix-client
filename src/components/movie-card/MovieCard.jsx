@@ -1,7 +1,7 @@
 // src/components/movie-card/MovieCard.jsx
 import React from 'react';
 import PropTypes from 'prop-types'; // Import PropTypes
-import '..movie-card/MovieCard.scss';
+import './MovieCard.scss';
 
 export const MovieCard = ({ movie, onMovieClick }) => {
   return (
