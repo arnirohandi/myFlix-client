@@ -1,39 +1,30 @@
 // src/components/main-view/MainView.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import { MovieCard } from "../movie-card/MovieCard";
 import { MovieView } from "../movie-view/MovieView";
 
 export const MainView = () => {
-  // Mock data for movies
-  const [movies] = useState ([
-    { id: 1, 
-      title: 'Inception', 
-      description: 'A mind-bending thriller', 
-      genre: 'Sci-Fi', 
-      director: 'Christopher Nolan', 
-      image: 'inception.jpg' 
-    },
-    { id: 2, 
-      title: 'The Matrix', 
-      description: 'A dystopian future reality', 
-      genre: 'Sci-Fi', 
-      director: 'The Wachowskis', 
-      image: 'matrix.jpg' 
-    },
-    { id: 3, 
-      title: 'Interstellar', 
-      description: 'A journey through space and time', 
-      genre: 'Sci-Fi', 
-      director: 'Christopher Nolan', 
-      image: 'interstellar.jpg' },
-  ]);
-
+  // Initialize movies with an empty array
+  const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+
+  // Fetch movies from the API when the component mounts
+  useEffect(() => {
+    fetch("https://myflix-api-app-ff32afce7dc8.herokuapp.com/movies")
+    .then((response) => response.json())
+    .then((data) => {
+      setMovies(data);
+    })
+    .catch((error) => {
+      console.log("Error fetching movies:", error);
+    });
+  },[]);
 
   const handleBackClick = () => {
     setSelectedMovie(null);
   };
-
+  
   // Show MovieView if a movie is selected
   if (selectedMovie) {
     return <MovieView movie={selectedMovie} onBackClick={handleBackClick} />;
@@ -49,7 +40,7 @@ export const MainView = () => {
       <div>
         {movies.map((movie) => (
           <MovieCard 
-          key={movie.id} 
+          key={movie._id} 
           movie={movie} 
           onMovieClick={(newSelectedMovie) => {
             setSelectedMovie(newSelectedMovie);
@@ -60,4 +51,6 @@ export const MainView = () => {
     );
   };
 
+  // Add PropTypes for MainView 
+  MainView.propTypes = {};
 
