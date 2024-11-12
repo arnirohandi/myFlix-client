@@ -1,56 +1,86 @@
 // src/components/main-view/MainView.jsx
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/MovieCard";
 import { MovieView } from "../movie-view/MovieView";
+import { LoginView } from "../login-view/LoginView";
+import { SignupView } from "../signup-view/SignupView";
 
 export const MainView = () => {
-  // Initialize movies with an empty array
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token")
+
+  const [user, setUser] = useState(storedUser ? storedUser : null);
+  const [token, setToken] = useState(storedToken ? storedToken : null);
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   // Fetch movies from the API when the component mounts
   useEffect(() => {
-    fetch("https://myflix-api-app-ff32afce7dc8.herokuapp.com/movies")
-    .then((response) => response.json())
-    .then((data) => {
-      setMovies(data);
+    if (!token) return;
+
+    fetch("https://myflix-api-app-ff32afce7dc8.herokuapp.com/movies", {
+      headers: { Authorization: `Bearer ${token}` }
     })
-    .catch((error) => {
-      console.log("Error fetching movies:", error);
-    });
-  },[]);
+      .then((response) => response.json())
+      .then((data) => {
+        const moviesFromApi = data.docs.map((doc) => ({
+          id: doc.key,
+          title: doc.title,
+          image: `https://example.com/movie1`,
+          director: doc.director_name?.[0]
+        }));
+        setMovies(moviesFromApi);
+      })
+      .catch(() => {
+        alert("Failed to fetch movies");
+      });
+  }, [token]);
 
-  const handleBackClick = () => {
-    setSelectedMovie(null);
+  const handleLogout = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.clear();
   };
-  
-  // Show MovieView if a movie is selected
-  if (selectedMovie) {
-    return <MovieView movie={selectedMovie} onBackClick={handleBackClick} />;
+
+  if (!user) {
+    return (
+      <>
+        <LoginView onLoggedIn={(user, token) => { setUser(user); setToken(token); }} />
+        <SignupView />
+      </>
+    );
   }
 
-  // Handle empty movie list
-  if (movies.length === 0) {
-    return <div>The list is empty!</div>;
-  }
-  
-  // Render the main view with MovieCards
+  if (selectedMovie) {
     return (
-      <div>
-        {movies.map((movie) => (
-          <MovieCard 
-          key={movie._id} 
-          movie={movie} 
+      <>
+        <button onClick={handleLogout}>Logout</button>
+        <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+      </>
+    );
+  }
+
+  if (movies.length === 0) {
+    return (
+      <>
+        <button onClick={handleLogout}>Logout</button>
+        <div>The list is empty!</div>
+      </>
+    );
+  }
+
+  return (
+    <div>
+      <button onClick={handleLogout}>Logout</button>
+      {movies.map((movie) => (
+        <MovieCard
+          key={movie.id}
+          movie={movie}
           onMovieClick={(newSelectedMovie) => {
             setSelectedMovie(newSelectedMovie);
           }}
         />
       ))}
-      </div>
-    );
-  };
-
-  // Add PropTypes for MainView 
-  MainView.propTypes = {};
-
+    </div>
+  );
+};

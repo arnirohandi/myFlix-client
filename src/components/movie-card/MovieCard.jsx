@@ -5,11 +5,11 @@ import './MovieCard.scss';
 
 export const MovieCard = ({ movie, onMovieClick }) => {
   return (
-   <div
-     className="movie-card"
-     onClick={() => onMovieClick(movie)}
+    <div
+      className="movie-card"
+      onClick={() => onMovieClick(movie)}
     >
-      <h3>{movie.title}</h3> 
+      <h3>{movie.title}</h3>
     </div>
   );
 };
