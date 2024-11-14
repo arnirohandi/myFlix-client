@@ -1,0 +1,123 @@
+// src/styles/auth-styles.scss
+
+// Shared Colors from the palette
+$background-color: #dae9e4;
+$form-background-color: #ffffff;
+$input-border-color: #8bcbc8;
+$input-focus-color: #fdae84;
+$button-background-color: #fdae84;
+$button-hover-color: #ec7a46;
+$text-color: #3c2e3d;
+
+// Shared Fonts
+$font-family: 'Arial', sans-serif;
+
+// General Body Style
+body {
+  font-family: $font-family;
+  margin: 0;
+  padding: 0;
+  background-color: $background-color;
+}
+
+// Shared container for login and signup
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: $background-color;
+  padding: 0 15px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  max-width: 450px;
+  padding: 30px;
+  border: 1px solid $input-border-color;
+  border-radius: 8px;
+  background-color: $form-background-color;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+// Form headers
+h1 {
+  font-size: 28px;
+  color: $text-color;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+// Labels
+label {
+  font-size: 16px;
+  color: $text-color;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+// Input Fields
+input {
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid $input-border-color;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+// Input Focus State
+input:focus {
+  outline: none;
+  border-color: $input-focus-color;
+  box-shadow: 0 0 5px rgba(253, 174, 132, 0.5);
+}
+
+// Buttons
+button {
+  padding: 12px;
+  background-color: $button-background-color;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: $button-hover-color;
+}
+
+// Link Styling
+a {
+  font-size: 14px;
+  color: $input-border-color;
+  text-decoration: none;
+  margin-top: 15px;
+  text-align: center;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+// Responsive Design
+@media (max-width: 600px) {
+  form {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+}

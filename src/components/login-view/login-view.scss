@@ -1,0 +1,14 @@
+// src/components/login-view/login-view.scss
+@import "../../styles/auth-styles"; // Import shared auth styles
+
+.login-form {
+  // Specific styles here if needed for Login page
+}
+
+// Responsive Design adjustments for Login (optional)
+@media (max-width: 600px) {
+  .login-form {
+    width: 100%;
+    padding: 20px;
+  }
+}

@@ -1,7 +1,8 @@
 // src/index.jsx
-import { createRoot } from 'react-dom/client';
+import { createRoot } from "react-dom/client";
 import { MainView } from "./components/main-view/MainView";
 import "./index.scss";
+import "./components/movie-view/movie-view.scss"
 
 // Get the container element
 const container = document.getElementById('root')
@@ -10,4 +11,5 @@ const container = document.getElementById('root')
 const root = createRoot (container);
 
 // Render the MainView component
-root.render(<mainView />);
+root.render(<MainView />);
+

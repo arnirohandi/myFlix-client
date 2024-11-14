@@ -1,7 +1,6 @@
 // src/components/movie-view/MovieView.jsx
 import React from 'react';
 import PropTypes from 'prop-types'; // Import PropTypes
-import './MovieView.scss';
 
 export const MovieView = ({ movie, onBackClick }) => {
   if (!movie) {
@@ -10,20 +9,26 @@ export const MovieView = ({ movie, onBackClick }) => {
 
   return (
     <div className="movie-view">
-      <h2 className="movie-view__title">{movie.Title}</h2>
-      <p className="movie-view__description">{movie.Description}</p>
-      <p className="movie-view__genre"><strong>Genre:</strong> {movie.Genre.Name}</p>
-      <p className="movie-view__director"><strong>Director:</strong> {movie.Director.Name}</p>
+      <h2 className="movie-view__title">{movie.title}</h2>
+      <p className="movie-view__description">{movie.description}</p>
+      <p className="movie-view__genre">Genre: {movie.genre.name}</p>
+      <p className="movie-view__director">Director: {movie.director.name}</p>
       {movie.ImagePath ? (
         <img
           className="movie-view__image"
           src={movie.ImagePath}
-          alt={`Poster of ${movie.Title}`}
+          alt={`Poster of ${movie.title}`}
         />
       ) : (
         <p>No image available.</p>
       )}
-      <button className="movie-view__back-button" onClick={onBackClick}>Back</button>
+      <button
+        className="movie-view__back-button"
+        onClick={onBackClick}
+        style={{ cursor: "pointer" }}
+      >
+        Back
+      </button>
     </div>
   );
 };
@@ -32,13 +37,13 @@ export const MovieView = ({ movie, onBackClick }) => {
 MovieView.propTypes = {
   movie: PropTypes.shape({
     _id: PropTypes.string.isRequired, // Movie ID from the API
-    Title: PropTypes.string.isRequired, // Movie title
-    Description: PropTypes.string, // Movie description
-    Genre: PropTypes.shape({
-      Name: PropTypes.string, // Genre name
+    title: PropTypes.string.isRequired, // Movie title
+    description: PropTypes.string, // Movie description
+    genre: PropTypes.shape({
+      name: PropTypes.string, // Genre name
     }),
-    Director: PropTypes.shape({
-      Name: PropTypes.string, // Director's name
+    director: PropTypes.shape({
+      name: PropTypes.string, // Director's name
     }),
     ImagePath: PropTypes.string, // Path or URL to the movie image
   }).isRequired,

@@ -1,59 +1,60 @@
-import React, { UseState } from "react";
+// src/components/login-view/LoginView.jsx
+import React, { useState } from 'react';
+import './login-view.scss'; // Ensure the styles are correctly imported
 
 export const LoginView = ({ onLoggedIn }) => {
-  const [username, setUsername] = useState("167OLdP5BUfLZGxP");
-  const [password, setPassword] = useState("K39eKYhPMV9DDWhJ");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
-    // this prevents the default behaviour of the form which is to reload the entire page
     event.preventDefault();
 
     const data = {
       Username: username,
-      Password: password
+      Password: password,
     };
 
     fetch("https://myflix-api-app-ff32afce7dc8.herokuapp.com/login", {
       method: "POST",
+      body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.user) {
-          localStorage.setItem("user", JSON.stringify(data.user));
-          localStorage.setItem("token", data.token);
+        if (data.token) {
           onLoggedIn(data.user, data.token);
         } else {
-          alert("Invalid login credential");
+          alert("Login failed");
         }
       })
-      .catch((e) => {
+      .catch(() => {
         alert("Something went wrong during login");
       });
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Username:
+    <div className="auth-container">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <h1>Login</h1>
+        <label htmlFor="username">Username</label>
         <input
           type="text"
+          id="username"
           value={username}
-          onChange={(e) => setUserName(e.target.value)}
+          onChange={(e) => setUsername(e.target.value)}
           required
         />
-      </label>
-      <label>
-        Password:
+        <label htmlFor="password">Password</label>
         <input
           type="password"
+          id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-      </label>
-      <button type="submit">Submit</button>
-    </form>
+        <button type="submit">Login</button>
+        <a href="/signup">Don't have an account? Sign up</a>
+      </form>
+    </div>
   );
 };

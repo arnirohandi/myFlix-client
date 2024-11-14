@@ -4,6 +4,7 @@ import { MovieCard } from "../movie-card/MovieCard";
 import { MovieView } from "../movie-view/MovieView";
 import { LoginView } from "../login-view/LoginView";
 import { SignupView } from "../signup-view/SignupView";
+import "./main-view.scss"; // main view specific styles
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -27,7 +28,7 @@ export const MainView = () => {
           id: doc.key,
           title: doc.title,
           image: `https://example.com/movie1`,
-          director: doc.director_name?.[0]
+          director: doc.director_name?.[0],
         }));
         setMovies(moviesFromApi);
       })
@@ -44,10 +45,10 @@ export const MainView = () => {
 
   if (!user) {
     return (
-      <>
+      <div>
         <LoginView onLoggedIn={(user, token) => { setUser(user); setToken(token); }} />
         <SignupView />
-      </>
+      </div>
     );
   }
 
@@ -60,27 +61,20 @@ export const MainView = () => {
     );
   }
 
-  if (movies.length === 0) {
-    return (
-      <>
-        <button onClick={handleLogout}>Logout</button>
-        <div>The list is empty!</div>
-      </>
-    );
-  }
-
   return (
     <div>
       <button onClick={handleLogout}>Logout</button>
-      {movies.map((movie) => (
-        <MovieCard
-          key={movie.id}
-          movie={movie}
-          onMovieClick={(newSelectedMovie) => {
-            setSelectedMovie(newSelectedMovie);
-          }}
-        />
-      ))}
+      {movies.length === 0 ? (
+        <div>The list is empty!</div>
+      ) : (
+        movies.map((movie) => (
+          <MovieCard
+            key={movie.id}
+            movie={movie}
+            onMovieClick={(newSelectedMovie) => setSelectedMovie(newSelectedMovie)}
+          />
+        ))
+      )}
     </div>
   );
 };

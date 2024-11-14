@@ -1,0 +1,14 @@
+// src/components/signup-view/signup-view.scss
+@import "../../styles/auth-styles"; // Import shared auth styles
+
+.signup-form {
+  // Specific styles for signup page
+}
+
+// Responsive Design adjustments for Signup (optional)
+@media (max-width: 600px) {
+  .signup-form {
+    width: 100%;
+    padding: 20px;
+  }
+}
