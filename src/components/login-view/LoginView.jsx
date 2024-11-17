@@ -10,14 +10,14 @@ export const LoginView = ({ onLoggedIn }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const data = {
-      access: username,
-      secret: password,
-    };
+    const queryParams = new URLSearchParams({
+      Username: username,
+      Password: password,
+    });
 
-    fetch("https://myflix-api-app-ff32afce7dc8.herokuapp.com/login.json", {
+    fetch(`https://myflix-api-app-ff32afce7dc8.herokuapp.com/login?${queryParams.toString()}`, {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify(queryParams),
     }).then((response) => {
       if (response.ok) {
         onLoggedIn(username);
