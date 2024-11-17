@@ -2,6 +2,7 @@
 import "./movie-view.scss";
 
 export const MovieView = ({ movie, onBackClick }) => {
+  console.log(movie);
   return (
     <div>
       <div>
@@ -12,7 +13,7 @@ export const MovieView = ({ movie, onBackClick }) => {
         <span>{movie.title}</span>
       </div>
       <div>
-        < span>Description: </span>
+        <span>Description: </span>
         <span>{movie.description} </span>
       </div>
       <div>
