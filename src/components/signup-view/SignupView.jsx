@@ -19,7 +19,7 @@ export const SignupView = () => {
       Birthday: birthday,
     };
 
-    fetch("https://myflix-api-app-ff32afce7dc8.herokuapp.com/signup", {
+    fetch("https://myflix-api-app-ff32afce7dc8.herokuapp.com/users", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
