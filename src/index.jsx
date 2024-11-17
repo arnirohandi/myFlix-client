@@ -1,15 +1,18 @@
 // src/index.jsx
 import { createRoot } from "react-dom/client";
 import { MainView } from "./components/main-view/MainView";
+import Container from "react-bootstrap/Container";
+
 import "./index.scss";
-import "./components/movie-view/movie-view.scss"
 
-// Get the container element
-const container = document.getElementById('root')
+const App = () => {
+  return (
+    <Container>
+      <MainView />
+    </Container>
+  );
+};
 
-// Create a root using React 18's new method
-const root = createRoot (container);
-
-// Render the MainView component
-root.render(<MainView />);
-
+const container = document.querySelector("#root");
+const root = createRoot(container);
+root.render(<App />);

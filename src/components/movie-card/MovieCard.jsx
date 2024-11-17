@@ -1,38 +1,31 @@
 // src/components/movie-card/MovieCard.jsx
 import React from "react";
 import PropTypes from "prop-types"; // Import PropTypes
+import { Button, Card } from "react-bootstrap"; // Import Bootstrap
 
 export const MovieCard = ({ movie, onMovieClick }) => {
   return (
-    <div className="movie-card" onClick={() => onMovieClick(movie)}>
-      {/* Render the movie's title */}
-      <h3>{movie.title}</h3>
-
-      {/* Render the movie's image if available */}
-      {movie.ImagePath && <img src={movie.ImagePath} alt={`${movie.title} poster`} />}
-
-      {/* Render the genre and director if available */}
-      <p>{movie.genre?.name ? `Genre: ${movie.genre.name}` : "Genre: Unknown"}</p>
-      <p>{movie.director?.name ? `Director: ${movie.director.name}` : "Director: Unknown"}</p>
-    </div>
+    <Card className="h-100">
+      <Card.Img variant="top" src={movie.image} />
+      <Card.Body>
+        <Card.Title>{movie.title}</Card.Title>
+        <Card.Text>{movie.director}</Card.Text>
+        <Button onClick={() => onMovieClick(movie)} variant="link">
+          Open
+        </Button>
+      </Card.Body>
+    </Card>
   );
 };
 
 // Define PropTypes for MovieCard
 MovieCard.propTypes = {
   movie: PropTypes.shape({
-    _id: PropTypes.string.isRequired, // Unique identifier for each movie
     title: PropTypes.string.isRequired, // Movie title
-    description: PropTypes.string, // Movie description (optional)
-    genre: PropTypes.shape({
-      name: PropTypes.string, // Genre name (e.g., "Sci-Fi") (optional)
-    }),
-    director: PropTypes.shape({
-      name: PropTypes.string, // Director's name (optional)
-    }),
-    ImagePath: PropTypes.string, // Image URL or path (optional)
+    description: PropTypes.string.isRequired, // Movie description 
+    genre: PropTypes.string.isRequired, // Genre name 
+    director: PropTypes.string.isRequired, // Director's name 
+    image: PropTypes.string.isRequired,// Image URL 
   }).isRequired,
   onMovieClick: PropTypes.func.isRequired, // Required callback function for click events
 };
-
-

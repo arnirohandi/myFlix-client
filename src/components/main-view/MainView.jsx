@@ -1,80 +1,65 @@
-// src/components/main-view/MainView.jsx
 import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/MovieCard";
 import { MovieView } from "../movie-view/MovieView";
 import { LoginView } from "../login-view/LoginView";
 import { SignupView } from "../signup-view/SignupView";
-import "./main-view.scss"; // main view specific styles
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export const MainView = () => {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  const storedToken = localStorage.getItem("token")
-
-  const [user, setUser] = useState(storedUser ? storedUser : null);
-  const [token, setToken] = useState(storedToken ? storedToken : null);
-  const [movies, setMovies] = useState([]);
+  const [movie, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [user, setUser] = useState(null);
 
-  // Fetch movies from the API when the component mounts
   useEffect(() => {
-    if (!token) return;
-
-    fetch("https://myflix-api-app-ff32afce7dc8.herokuapp.com/movies", {
-      headers: { Authorization: `Bearer ${token}` }
-    })
+    fetch("https://myflix-api-app-ff32afce7dc8.herokuapp.com/movies")
       .then((response) => response.json())
       .then((data) => {
-        const moviesFromApi = data.docs.map((doc) => ({
-          id: doc.key,
-          title: doc.title,
-          image: `https://example.com/movie1`,
-          director: doc.director_name?.[0],
-        }));
+        const moviesFromApi = data.docs.map((doc) => {
+          return {
+            id: doc.key,
+            title: doc.title,
+            image: `https://example.com/movie1`, // Replace with actual image URL
+            director: doc.director_name?.[0]
+          };
+        });
+
         setMovies(moviesFromApi);
-      })
-      .catch(() => {
-        alert("Failed to fetch movies");
       });
-  }, [token]);
-
-  const handleLogout = () => {
-    setUser(null);
-    setToken(null);
-    localStorage.clear();
-  };
-
-  if (!user) {
-    return (
-      <div>
-        <LoginView onLoggedIn={(user, token) => { setUser(user); setToken(token); }} />
-        <SignupView />
-      </div>
-    );
-  }
-
-  if (selectedMovie) {
-    return (
-      <>
-        <button onClick={handleLogout}>Logout</button>
-        <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
-      </>
-    );
-  }
+  }, []);
 
   return (
-    <div>
-      <button onClick={handleLogout}>Logout</button>
-      {movies.length === 0 ? (
-        <div>The list is empty!</div>
+    <Row className="justify-content-md-center">
+      {!user ? (
+        <Col md={5}>
+          <LoginView onLoggedIn={(user) => setUser(user)} />
+          or
+          <SignupView />
+        </Col>
+      ) : selectedMovie ? (
+        <Col md={8}>
+        <MovieView
+          style={{ border: "1px solid green" }}
+          movie={selectedMovie}
+          onBackClick={() => setSelectedMovie(null)}
+        />
+      </Col>  
+      ) : movies.length === 0 ? (
+        <div>The list is empty</div>
       ) : (
-        movies.map((movie) => (
-          <MovieCard
-            key={movie.id}
-            movie={movie}
-            onMovieClick={(newSelectedMovie) => setSelectedMovie(newSelectedMovie)}
-          />
-        ))
-      )}
-    </div>
+        <>
+          {movies.map((movie) => (
+            <Col className="mb-4" key={movie.id} md={3}>
+            <MovieCard
+              movie={movie}
+              onMovieClick={(newSelectedMovie) => {
+                setSelectedMovie(newSelectedMovie);
+              }}
+            />
+            </Col>
+          ))}
+          </>
+        )}
+    </Row>
   );
 };

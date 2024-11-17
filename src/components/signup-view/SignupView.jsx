@@ -1,6 +1,7 @@
 // src/components/signup-view/SignupView.jsx
 import React, { useState } from 'react';
-import './signup-view.scss'; // Ensure the styles are correctly imported
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 export const SignupView = () => {
   const [username, setUsername] = useState("");
@@ -21,60 +22,62 @@ export const SignupView = () => {
     fetch("https://myflix-api-app-ff32afce7dc8.herokuapp.com/signup", {
       method: "POST",
       body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.user) {
-          alert("Signup successful");
-        } else {
-          alert("Signup failed");
-        }
-      })
-      .catch(() => {
-        alert("Something went wrong during signup");
-      });
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then((response) => {
+      if (response.ok) {
+        alert("Signup successful");
+        window.location.reload();
+      } else {
+        alert("Signup failed");
+      }
+    });
   };
 
   return (
-    <div className="auth-container">
-      <form className="signup-form" onSubmit={handleSubmit}>
-        <h1>Signup</h1>
-        <label htmlFor="username">Username</label>
-        <input
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlId="signUpFormUsername">
+        <Form.Label>Username:</Form.Label>
+        <Form.Control
           type="text"
-          id="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          minLength="3"
         />
-        <label htmlFor="password">Password</label>
-        <input
+      </Form.Group>
+
+      <Form.Group controlId="signUpFormPassword">
+        <Form.Label>Password:</Form.Label>
+        <Form.Control
           type="password"
-          id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <label htmlFor="email">Email</label>
-        <input
+      </Form.Group>
+      <Form.Group controlId="signUpFormEmail">
+        <Form.Label>Email:</Form.Label>
+        <Form.Control
           type="email"
-          id="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <label htmlFor="birthday">Birthday</label>
-        <input
+      </Form.Group>
+      <Form.Group controlId="signUpFormBirthday">
+        <Form.Label>Birthday:</Form.Label>
+        <Form.Control
           type="date"
-          id="birthday"
           value={birthday}
           onChange={(e) => setBirthday(e.target.value)}
           required
         />
-        <button type="submit">Sign Up</button>
-        <a href="/login">Already have an account? Login</a>
-      </form>
-    </div>
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Submit
+      </Button>
+    </Form>
   );
 };
