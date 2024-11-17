@@ -7,7 +7,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 export const MainView = () => {
-  const [movie, setMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [user, setUser] = useState(null);
 
@@ -20,7 +20,9 @@ export const MainView = () => {
             id: movie._id,
             title: movie.title,
             image: movie.image_url,
-            director: movie.director.name?.[0]
+            director: movie.director.name,
+            description: movie.description,
+            genre: movie.genre.name
           };
         });
 

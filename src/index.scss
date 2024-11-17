@@ -1,7 +1,5 @@
 $primary: SeaGreen;
 $body-bg: Honeydew;
 
-@use 'bootstrap/scss/bootstrap' as *;
-@use 'mixins/banner' as *;
-
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
 
