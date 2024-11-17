@@ -14,13 +14,13 @@ export const MainView = () => {
   useEffect(() => {
     fetch("https://myflix-api-app-ff32afce7dc8.herokuapp.com/movies")
       .then((response) => response.json())
-      .then((data) => {
-        const moviesFromApi = data.docs.map((doc) => {
+      .then((movies) => {
+        const moviesFromApi = movies.map((movie) => {
           return {
-            id: doc.key,
-            title: doc.title,
-            image: `https://example.com/movie1`, // Replace with actual image URL
-            director: doc.director_name?.[0]
+            id: movie._id,
+            title: movie.title,
+            image: movie.image_url,
+            director: movie.director.name?.[0]
           };
         });
 
