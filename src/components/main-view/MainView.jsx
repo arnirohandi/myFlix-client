@@ -1,63 +1,67 @@
-// src/components/main-view/MainView.jsx
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/MovieCard";
 import { MovieView } from "../movie-view/MovieView";
+import { LoginView } from "../login-view/LoginView";
+import { SignupView } from "../signup-view/SignupView";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export const MainView = () => {
-  // Mock data for movies
-  const [movies] = useState ([
-    { id: 1, 
-      title: 'Inception', 
-      description: 'A mind-bending thriller', 
-      genre: 'Sci-Fi', 
-      director: 'Christopher Nolan', 
-      image: 'inception.jpg' 
-    },
-    { id: 2, 
-      title: 'The Matrix', 
-      description: 'A dystopian future reality', 
-      genre: 'Sci-Fi', 
-      director: 'The Wachowskis', 
-      image: 'matrix.jpg' 
-    },
-    { id: 3, 
-      title: 'Interstellar', 
-      description: 'A journey through space and time', 
-      genre: 'Sci-Fi', 
-      director: 'Christopher Nolan', 
-      image: 'interstellar.jpg' },
-  ]);
-
+  const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [user, setUser] = useState(null);
 
-  const handleBackClick = () => {
-    setSelectedMovie(null);
-  };
+  useEffect(() => {
+    fetch("https://myflix-api-app-ff32afce7dc8.herokuapp.com/movies")
+      .then((response) => response.json())
+      .then((movies) => {
+        const moviesFromApi = movies.map((movie) => {
+          return {
+            id: movie._id,
+            title: movie.title,
+            image: movie.image_url,
+            director: movie.director.name,
+            description: movie.description,
+            genre: movie.genre.name
+          };
+        });
 
-  // Show MovieView if a movie is selected
-  if (selectedMovie) {
-    return <MovieView movie={selectedMovie} onBackClick={handleBackClick} />;
-  }
+        setMovies(moviesFromApi);
+      });
+  }, []);
 
-  // Handle empty movie list
-  if (movies.length === 0) {
-    return <div>The list is empty!</div>;
-  }
-  
-  // Render the main view with MovieCards
-    return (
-      <div>
-        {movies.map((movie) => (
-          <MovieCard 
-          key={movie.id} 
-          movie={movie} 
-          onMovieClick={(newSelectedMovie) => {
-            setSelectedMovie(newSelectedMovie);
-          }}
+  return (
+    <Row className="justify-content-md-center">
+      {!user ? (
+        <Col md={5}>
+          <LoginView onLoggedIn={(user) => setUser(user)} />
+          or
+          <SignupView />
+        </Col>
+      ) : selectedMovie ? (
+        <Col md={8}>
+        <MovieView
+          style={{ border: "1px solid green" }}
+          movie={selectedMovie}
+          onBackClick={() => setSelectedMovie(null)}
         />
-      ))}
-      </div>
-    );
-  };
-
-
+      </Col>  
+      ) : movies.length === 0 ? (
+        <div>The list is empty</div>
+      ) : (
+        <>
+          {movies.map((movie) => (
+            <Col className="mb-4" key={movie.id} md={3}>
+            <MovieCard
+              movie={movie}
+              onMovieClick={(newSelectedMovie) => {
+                setSelectedMovie(newSelectedMovie);
+              }}
+            />
+            </Col>
+          ))}
+          </>
+        )}
+    </Row>
+  );
+};
