@@ -3,6 +3,7 @@ import { MovieCard } from "../movie-card/MovieCard";
 import { MovieView } from "../movie-view/MovieView";
 import { LoginView } from "../login-view/LoginView";
 import { SignupView } from "../signup-view/SignupView";
+import { ProfileView } from "../profile-view/ProfileView";
 import { NavigationBar } from "../navigation-bar/NavigationBar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -44,6 +45,20 @@ export const MainView = () => {
       />
       <Row className="justify-content-md-center">
         <Routes>
+          <Route
+            path="/profile"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <Col md={8}>
+                    <ProfileView user={user}/>
+                  </Col>
+                )}
+              </>
+            }
+          />
           <Route
             path="/signup"
             element={
