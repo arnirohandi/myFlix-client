@@ -5,18 +5,26 @@ import { Button, Form, ListGroup } from "react-bootstrap";
 import { MovieCard } from "../movie-card/MovieCard";
 import "./profile-view.scss";
 
-export const ProfileView = ({ user, onLogout, onUpdateUser, onFavoriteToggle }) => {
-  // console.log(user);
-  const [username, setUsername] = useState(user); // ok
-  const [email, setEmail] = useState(user); // This needs to be pulled from /users endpoint
-  const [dob, setDob] = useState(user); // This needs to be pulled from /users endpoint
+export const ProfileView = ({ profile, onLogout, onUpdateUser, onFavoriteToggle }) => {
+  // console.log(profile);
+  const [user, setUsername] = useState(profile.user); // ok
+  const [email, setEmail] = useState(profile.email); // This needs to be pulled from /users endpoint
+  const [dob, setDob] = useState(profile.dateofbirth); // This needs to be pulled from /users endpoint
   const [favoriteMovies, setFavoriteMovies] = useState([]); // This needs to be pulled from /users endpoint
   
   useEffect(() => {
     // Fetch the user's favorite movies from the API
     const fetchFavoriteMovies = async () => {
       try {
-        const response = await axios.get(`/users/${user._id}/favorites`);
+        const response = await axios.get(
+          `https://myflix-api-app-ff32afce7dc8.herokuapp.com/users/${profile.user}`,
+          {
+            headers: {
+              Authorization: `Bearer ${profile.token}`, // Include the token in the Authorization header
+            },
+          }
+        );
+        console.log(response);
         setFavoriteMovies(response.data);
       } catch (error) {
         console.error("Error fetching favorite movies:", error);
@@ -52,7 +60,7 @@ export const ProfileView = ({ user, onLogout, onUpdateUser, onFavoriteToggle }) 
           <Form.Label>Username</Form.Label>
           <Form.Control 
             type="text" 
-            value={username} 
+            value={user} 
             onChange={(e) => setUsername(e.target.value)} 
           />
         </Form.Group>
