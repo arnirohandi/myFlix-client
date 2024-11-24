@@ -30,7 +30,6 @@ export const ProfileView = ({ profile, onLogout, onUpdateUser, onFavoriteToggle 
         console.error("Error fetching favorite movies:", error);
       }
     };
-
     fetchFavoriteMovies();
   }, [user._id]);
 
@@ -83,7 +82,8 @@ export const ProfileView = ({ profile, onLogout, onUpdateUser, onFavoriteToggle 
           />
         </Form.Group>
 
-        <Button variant="primary" onClick={handleUpdateProfile}>Update Profile</Button>
+        {/* Disable for now */}
+        {/* <Button variant="primary" onClick={handleUpdateProfile}>Update Profile</Button> */}
       </Form>
 
       <h3>Favorite Movies</h3>
@@ -97,7 +97,7 @@ export const ProfileView = ({ profile, onLogout, onUpdateUser, onFavoriteToggle 
 
       <Button variant="danger" onClick={handleDeregister}>Deregister</Button>
       
-      <Link to="/" className="btn btn-secondary mt-3">Back to Home</Link>
+      {/* <Link to="/" className="btn btn-secondary mt-3">Back to Home</Link> */}
     </div>
   );
 };
