@@ -80,6 +80,29 @@ export const ProfileView = ({ profile, onLogout, onUpdateUser, onFavoriteToggle 
       .catch(error => console.error("Error deregistering user:", error));
   };
 
+  const handleRemoveFromFavorites = async (movieId) => {
+    try {
+      await axios.delete(
+        `https://myflix-api-app-ff32afce7dc8.herokuapp.com/users/${profile.user}/movies/${movieId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${profile.token}`,
+          },
+        }
+      );
+  
+      // Update the favorite movies list in the UI
+      setFavoriteMovies((prevFavorites) =>
+        prevFavorites.filter((movie) => movie.id !== movieId)
+      );
+  
+      alert("Movie removed from favorites!");
+    } catch (error) {
+      console.error("Error removing movie from favorites:", error);
+      alert("Failed to remove movie. Please try again.");
+    }
+  };
+
   return (
     <div className="profile-view">
       <h1>My Profile</h1>
@@ -120,8 +143,14 @@ export const ProfileView = ({ profile, onLogout, onUpdateUser, onFavoriteToggle 
       <ListGroup>
         {favoriteMovies.map(movie => (
           <ListGroup.Item key={movie.id}>
-            <MovieCard movie={movie} userId={profile.user} token={profile.token} 
-            onFavoriteToggle={onFavoriteToggle} />
+            <MovieCard 
+              movie={movie} 
+              userId={profile.user} 
+              token={profile.token} 
+              onFavoriteToggle={onFavoriteToggle} 
+              onRemoveFromFavorites={handleRemoveFromFavorites}
+              showRemoveButton={true} // Show the button
+            />
           </ListGroup.Item>
         ))}
       </ListGroup>

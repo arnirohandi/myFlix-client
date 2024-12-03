@@ -6,7 +6,8 @@ import { Button, Card } from "react-bootstrap"; // Import Bootstrap
 import { Link } from "react-router";
 import "./movie-card.scss";
 
-export const MovieCard = ({ movie, userId, token, onFavoriteAdded }) => {
+export const MovieCard = ({ movie, userId, token, onFavoriteAdded, 
+  onRemoveFromFavorites, showRemoveButton }) => {
   // Function to handle adding to favorites
   const handleAddToFavorites = async () => {
     try {
@@ -30,6 +31,10 @@ export const MovieCard = ({ movie, userId, token, onFavoriteAdded }) => {
     }
   };
 
+  const handleRemove = () => {
+    if (onRemoveFromFavorites) onRemoveFromFavorites(movie.id);
+  };
+
   return (
     <Card className="h-100 w-100">
       <Card.Img variant="top" className="img-fluid" src={movie.image} />
@@ -39,31 +44,18 @@ export const MovieCard = ({ movie, userId, token, onFavoriteAdded }) => {
         <Link to={`/movie/${encodeURIComponent(movie.id)}`} className="me-2">
           <Button variant="primary">See more</Button>
         </Link>
-        <Button variant="secondary" onClick={handleAddToFavorites}>
+        <Button variant="secondary" onClick={handleAddToFavorites} className="me-2">
           Favorite
         </Button>
+        {showRemoveButton && (
+          <Button variant="danger" onClick={handleRemove}>
+            Remove from Favorites
+          </Button>
+        )}
       </Card.Body>
     </Card>
   );
 };
-
-// export const MovieCard = ({ movie }) => {
-//   return (
-//     <Card className="h-100 w-100">
-//       <Card.Img variant="top" className="img-fluid" src={movie.image} />
-//       <Card.Body>
-//         <Card.Title>{movie.title}</Card.Title>
-//         <Card.Text>{movie.director}</Card.Text>
-//         <Link to={`/movie/${encodeURIComponent(movie.id)}`} className="me-2">
-//           <Button variant="primary">See more</Button>
-//         </Link>
-//         <Link to={`#`}>
-//           <Button variant="secondary">Favorite</Button>
-//         </Link>
-//       </Card.Body>
-//     </Card>
-//   );
-// };
 
 // Define PropTypes for MovieCard
 MovieCard.propTypes = {
@@ -78,15 +70,6 @@ MovieCard.propTypes = {
   userId: PropTypes.string.isRequired, // User ID
   token: PropTypes.string.isRequired, // Authorization token
   onFavoriteAdded: PropTypes.func, // Callback function when a movie is favorited
+  onRemoveFromFavorites: PropTypes.func,
+  showRemoveButton: PropTypes.bool
 };
-
-// // Define PropTypes for MovieCard
-// MovieCard.propTypes = {
-//   movie: PropTypes.shape({
-//     title: PropTypes.string.isRequired, // Movie title
-//     description: PropTypes.string.isRequired, // Movie description 
-//     genre: PropTypes.string.isRequired, // Genre name 
-//     director: PropTypes.string.isRequired, // Director's name 
-//     image: PropTypes.string.isRequired,// Image URL 
-//   }).isRequired
-// };
