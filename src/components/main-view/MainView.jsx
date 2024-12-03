@@ -20,12 +20,6 @@ export const MainView = () => {
     dateofbirth: ""     
   });
 
-  // Filter functionality
-  const [filters, setFilters] = useState({
-    genre: "",
-    year: "",
-  });
-
   // Handler for when the user logs in
   const handleLogin = (user, profile) => {
     setUser(user);  // Set user state
@@ -45,29 +39,13 @@ export const MainView = () => {
             image: movie.image_url,
             director: movie.director.name,
             description: movie.description,
-            genre: movie.genre.name,
-            year: movie.year,
+            genre: movie.genre.name
           };
         });
 
         setMovies(moviesFromApi);
       });
   }, []);
-
-  // Handler for filter changes
-  const handleFilterChange = (e) => {
-    setFilters({
-      ...filters,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  // Filter movies based on genre and year
-  const filteredMovies = movies.filter((movie) => {
-    const matchesGenre = filters.genre ? movie.genre === filters.genre : true;
-    const matchesYear = filters.year ? movie.year === parseInt(filters.year) : true;
-    return matchesGenre && matchesYear;
-  });
 
   // console.log(movies.map((movie) => movie.id));
   return (
@@ -150,47 +128,11 @@ export const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <>
-                    {/* Filter Section */}
-                    <div className="filter-section">
-                      <label>Genre:</label>
-                      <select
-                        name="genre"
-                        value={filters.genre}
-                        onChange={handleFilterChange}
-                      >
-                        <option value="">All Genres</option>
-                        <option value="Action">Action</option>
-                        <option value="Sci-Fi">Sci-Fi</option>
-                        <option value="Drama">Drama</option>
-                      </select>
-
-                      <label>Year:</label>
-                      <select
-                        name="year"
-                        value={filters.year}
-                        onChange={handleFilterChange}
-                      >
-                        <option value="">All Years</option>
-                        <option value="1997">1997</option>
-                        <option value="1999">1999</option>
-                        <option value="2008">2008</option>
-                        <option value="2010">2010</option>
-                        <option value="2019">2019</option>
-                      </select>
-                    </div>
-
-                    {/* Display Filtered Movies */}
-                    {filteredMovies.length === 0 ? (
-                      <Col>No movies found.</Col>
-                    ) : (
-                      <>
-                        {filteredMovies.map((movie) => (
-                          <Col className="mb-4" key={movie.id} md={3}>
-                            <MovieCard movie={movie} />
-                          </Col>
-                        ))}
-                      </>
-                    )}
+                    {movies.map((movie) => (
+                      <Col className="mb-4" key={movie.id} md={3}>
+                        <MovieCard movie={movie} />
+                      </Col>
+                    ))}
                   </>
                 )}
               </>
