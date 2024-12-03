@@ -120,7 +120,8 @@ export const ProfileView = ({ profile, onLogout, onUpdateUser, onFavoriteToggle 
       <ListGroup>
         {favoriteMovies.map(movie => (
           <ListGroup.Item key={movie.id}>
-            <MovieCard movie={movie} onFavoriteToggle={onFavoriteToggle} />
+            <MovieCard movie={movie} userId={profile.user} token={profile.token} 
+            onFavoriteToggle={onFavoriteToggle} />
           </ListGroup.Item>
         ))}
       </ListGroup>
