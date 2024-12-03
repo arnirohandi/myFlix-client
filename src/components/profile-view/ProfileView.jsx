@@ -11,12 +11,13 @@ export const ProfileView = ({ profile, onLogout, onUpdateUser, onFavoriteToggle 
   const [email, setEmail] = useState(profile.email); // This needs to be pulled from /users endpoint
   const [dob, setDob] = useState(profile.dateofbirth); // This needs to be pulled from /users endpoint
   const [favoriteMovies, setFavoriteMovies] = useState([]); // This needs to be pulled from /users endpoint
-  
+  const [movies, setMovies] = useState([]);
+
   useEffect(() => {
     // Fetch the user's favorite movies from the API
     const fetchFavoriteMovies = async () => {
       try {
-        const response = await axios.get(
+        const userResponse = await axios.get(
           `https://myflix-api-app-ff32afce7dc8.herokuapp.com/users/${profile.user}`,
           {
             headers: {
@@ -24,8 +25,37 @@ export const ProfileView = ({ profile, onLogout, onUpdateUser, onFavoriteToggle 
             },
           }
         );
-        console.log(response);
-        setFavoriteMovies(response.data);
+        const favoriteMovieIds = userResponse.data.FavoriteMovies;
+        // console.log(favoriteMovieIds);
+
+        // Fetch all movies
+        const moviesResponse = await fetch(
+          "https://myflix-api-app-ff32afce7dc8.herokuapp.com/movies"
+        );
+
+        const moviesData = await moviesResponse.json();
+
+        // Transform movies data
+        const moviesFromApi = moviesData.map((movie) => ({
+          id: movie._id,
+          title: movie.title,
+          image: movie.image_url,
+          director: movie.director?.name,
+          description: movie.description,
+          genre: movie.genre?.name,
+        }));
+
+        setMovies(moviesFromApi);
+        //console.log(moviesFromApi);
+        
+        // Filter the favorite movies based on the fetched movies
+        const favoriteMoviesData = moviesFromApi.filter((movie) =>
+          favoriteMovieIds.includes(movie.id)
+        );
+        // console.log(favoriteMoviesData);
+
+        setFavoriteMovies(favoriteMoviesData);
+
       } catch (error) {
         console.error("Error fetching favorite movies:", error);
       }
@@ -88,14 +118,14 @@ export const ProfileView = ({ profile, onLogout, onUpdateUser, onFavoriteToggle 
 
       <h3>Favorite Movies</h3>
       <ListGroup>
-        {/* {favoriteMovies.map(movie => (
-          <ListGroup.Item key={movie._id}>
+        {favoriteMovies.map(movie => (
+          <ListGroup.Item key={movie.id}>
             <MovieCard movie={movie} onFavoriteToggle={onFavoriteToggle} />
           </ListGroup.Item>
-        ))} */}
+        ))}
       </ListGroup>
 
-      <Button variant="danger" onClick={handleDeregister}>Deregister</Button>
+      {/* <Button variant="danger" onClick={handleDeregister}>Deregister</Button> */}
       
       {/* <Link to="/" className="btn btn-secondary mt-3">Back to Home</Link> */}
     </div>
