@@ -48,7 +48,7 @@ export const MovieCard = ({ movie, userId, token, onFavoriteAdded,
           Favorite
         </Button>
         {showRemoveButton && (
-          <Button variant="danger" onClick={handleRemove}>
+          <Button variant="secondary" onClick={handleRemove}>
             Remove from Favorites
           </Button>
         )}

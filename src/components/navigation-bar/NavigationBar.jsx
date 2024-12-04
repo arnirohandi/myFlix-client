@@ -3,7 +3,12 @@ import { Link } from "react-router";
 
 export const NavigationBar = ({ user, onLoggedOut }) => {
   return (
-    <Navbar className="custom-navbar" bg="light" expand="lg">
+    // <Navbar className="custom-navbar" bg="light" expand="lg">
+    <Navbar 
+    className="custom-navbar" 
+    expand="lg" 
+    style={{ backgroundColor: '#87C498' }} // Example: Green background
+    >
       <Container>
         <Navbar.Brand as={Link} to="/" className="navbar-brand">
           myFlix
