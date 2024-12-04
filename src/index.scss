@@ -1,5 +1,73 @@
-$primary: SeaGreen;
-$body-bg: Honeydew;
+// Color palette
+$primary: #87C498;   
+$secondary: #DDD1A9; 
+$tertiary: #3F3A36;  
 
+$body-bg: $secondary; // Set body background to soft beige
+
+// Import Bootstrap's SCSS
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
+// Override Bootstrap button styles for the search button
+.btn-search {
+  background-color: $primary;
+  border-color: $primary;
+  color: $tertiary;
+  
+  &:hover {
+    background-color: darken($primary, 10%);
+    border-color: darken($primary, 10%);
+  }
+}
+
+// Profile view form styles
+.profile-form {
+  background-color: $secondary;
+  border: 1px solid $tertiary;
+  padding: 20px;
+  border-radius: 8px;
+  
+  .form-control {
+    background-color: #fff;
+    border-color: $tertiary;
+    color: $tertiary;
+    
+    &:focus {
+      border-color: $primary;
+      box-shadow: 0 0 5px rgba(135, 196, 152, 0.5);
+    }
+  }
+  
+  .form-label {
+    color: $tertiary;
+  }
+  
+  .form-check-input {
+    background-color: $primary;
+    border-color: $primary;
+    
+    &:checked {
+      background-color: darken($primary, 10%);
+      border-color: darken($primary, 10%);
+    }
+  }
+}
+
+// Navbar customizations
+.navbar {
+  font-weight: bold;  
+  color: $tertiary;   
+  
+  .navbar-nav .nav-link {
+    color: $tertiary; 
+    
+    &:hover {
+      color: darken($tertiary, 10%);  
+    }
+  }
+
+  .navbar-toggler-icon {
+    background-color: $primary;
+    font-weight: bold;
+  }
+}

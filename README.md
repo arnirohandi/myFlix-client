@@ -14,43 +14,55 @@
 - [Contact](#contact)
 
 ## Overview
-MyFlix-Client is a React-based single-page application (SPA) that displays a list of movies. Users can click on any movie to see more details and navigate back to the list. It is part of the myFlix project, which aims to showcase a movie database app.
+MyFlix-Client is a React-based single-page application (SPA) that provides users with an interactive interface to browse movies, view detailed information, and manage their profiles. It is part of the MyFlix Project, a full-stack application showcasing a movie database with client-side functionality for authentication and user interactions.
 
 ## Features
-- Display a list of movies as clickable cards.
-- View detailed information about each movie, including title, description, genre, and director.
-- Navigate back to the main list from a detailed movie view.
+- Movie Browsing: Display a list of movies as clickable cards.
+- Detailed Views: View detailed information about each movie, including title, description, genre, and director.
+- User Authentication: Login and signup features for user access.
+- User Profile: Manage user data, view and update profile information.
+- Navigate: Back to the main list from a detailed movie view.
 
 ## Project Structure
 
 Here’s the structure of the MyFlix-Client project:
 
 ```
-MyFlix-Client/
-│
-├── .parcel-cache/
-├── dist/
-├── node_modules/
-├── src/
-│   ├── components/
-│   │   ├── MainView.jsx
-│   │   ├── movie-card/
-│   │   │   ├── MovieCard.jsx
-│   │   │   └── MovieCard.scss
-│   │   ├── movie-view/
-│   │   │   ├── MovieView.jsx
-│   │   │   └── MovieView.scss
-│   ├── index.html
-│   ├── index.jsx
-│   ├── index.scss
-│
-├── .gitattributes
-├── .gitignore
-├── package-lock.json
-├── package.json
-├── README.md              
+src/
+├── components/
+│   ├── login-view/
+│   │   ├── LoginView.jsx           
+│   │   └── login-view.scss         
+│   ├── main-view/
+│   │   ├── MainView.jsx            
+│   │   └── main-view.scss          
+│   ├── movie-card/
+│   │   ├── MovieCard.jsx           
+│   │   └── movie-card.scss         
+│   ├── movie-view/
+│   │   ├── MovieView.jsx           
+│   │   └── movie-view.scss         
+│   ├── navigation-bar/
+│   │   └── navigationBar.jsx       
+│   ├── profile-view/
+│   │   ├── ProfileView.jsx         
+│   │   └── profile-view.scss       
+│   ├── signup-view/
+│   │   ├── SignupView.jsx          
+│   │   └── signup-view.scss        
+│   └── styles/
+│       └── auth-styles.scss        
+├── index.html                      
+├── index.jsx                       
+├── index.scss                     
+          
 ```
+Additional files:
 
+- .parcel-cache/: Parcel's cache directory for faster builds.
+- dist/: Output directory for the production build.
+- netlify.toml: Configuration for deploying to Netlify.
+- .gitignore: Specifies files to ignore in version control.
 
 ## Setup Instructions
 
@@ -83,13 +95,11 @@ npm run build
 
 ## Project Dependencies
 
-- React - JavaScript library for building user interfaces
-- Parcel - Blazing fast, zero configuration web application bundler
-- SASS - CSS preprocessor for easier styling
+- React - JavaScript library for building user interfaces.
+- Parcel - Zero configuration bundler for web application.
+- SASS - CSS preprocessor for modular and reusable styles.
 
-## Lisence
+## Development Dependencies
 
-## Contribution
-
-
-
+- ESLint: Javascript linting tool to maintain code quality.
+- Prettier: Code formatter for consistent code style.

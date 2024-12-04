@@ -1,9 +1,18 @@
+/* Define Color Palette */
+$primary: #3F3A36;    
+$secondary: #87C498;  
+$tertiary: #DDD1A9;   
+
 .profile-view {
   padding: 20px;
+  background-color: $secondary;
+  margin-top: 20px;
+  margin-bottom: 20px;
 
   h2,
   h3 {
     text-align: center;
+    color: $primary; /* Use primary color for headings */
   }
 
   .mb-4 {
@@ -12,6 +21,8 @@
 
   .text-danger {
     text-align: center;
-    color: red;
+    color: #D97C7C; /* You can keep this color for specific alerts */
   }
+
 }
+
