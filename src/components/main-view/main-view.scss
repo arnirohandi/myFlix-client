@@ -1,0 +1,16 @@
+/* CSS for the logo container */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  width: 100%;
+  background: #3F3A36;
+}
+
+/* CSS for the logo image */
+.logo {
+  width: 100%;  /* Make the logo responsive */
+  max-width: 200px;  /* Set a maximum width */
+  height: auto;  /* Maintain the aspect ratio */
+}

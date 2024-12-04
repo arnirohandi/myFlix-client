@@ -9,6 +9,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router";
+import logo from '../../assets/logo.png';
+import './main-view.scss';
 
 export const MainView = () => {
   const [movies, setMovies] = useState([]);
@@ -69,6 +71,13 @@ export const MainView = () => {
   // console.log(movies.map((movie) => movie.id));
   return (
     <BrowserRouter>
+      <div className="logo-container">
+        <img 
+          src={logo} 
+          alt="Website Logo" 
+          className="logo"  // Applying CSS class for the logo
+        />
+      </div>
       <NavigationBar
         user={user}
         onLoggedOut={() => {
