@@ -160,6 +160,7 @@ export const MainView = () => {
                         placeholder="Search by title, director, or genre"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
+                        className="custom-form-control"
                       />
                     </Col>
                     {filteredMovies.map((movie) => (
