@@ -87,9 +87,7 @@ npm run build
 - Parcel - Blazing fast, zero configuration web application bundler
 - SASS - CSS preprocessor for easier styling
 
-## Lisence
 
-## Contribution
 
 
 
